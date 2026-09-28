@@ -1,1 +1,76 @@
-<p>store-detail works!</p>
+<a routerLink="/stores" class="back-link">
+ Nazad na prodavnice
+</a>
+
+@if(isLoadding())
+{
+  <p> Ucitavanje... </p>
+}
+
+@if(errorMessage() !== ''){
+  <p class="error">{{errorMessage()}}</p>
+}
+
+@if(store(); as currentStore){
+  <h1>{{ currentStore.name}}</h1>
+
+  @if(currentStore.description != null){
+    <p class="muted">{{ currentStore.description}}</p>
+  }
+
+  <div class="stats">
+    <div class="stat-box">
+      <span class="stat-label">Ukupna Vrednost</span>
+      <span class="stat-label">{{totalValue() | currency}}</span>
+    </div>
+
+    @if(currentStore.value_limit !== null){
+      <div class="stat-box">
+        <span class="stat-label">Limit</span>
+        <span class="stat-label">{{currentStore.value_limit | currency}}</span>
+      </div>
+
+      <div class="stat-box">
+        <span class="stat-label">Presotalo</span>
+        <span class="stat-label">{{remainingValue() | currency}}</span>
+      </div>
+    }
+  </div>
+
+  <h2>Bundles</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Kreiran</th>
+        <th>Naziv</th>
+        <th>Broj Kupona</th>
+        <th>Ukupna Vrednost </th>
+        <th>Datum ISteka</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (bundle of bundles(); track bundle.id){
+        <tr>
+          <td>{{ bundle.created_at | date:'MM/dd/yyyy':'UTC' }}</td>
+          <td>{{bundle.name}}</td>
+          <td>{{bundle.number_of_codes}}</td>
+          <td>{{bundle.total_value | currency}}</td>
+          <td>
+            @if(bundle.expires_at !== null){
+              {{ bundle.expires_at | date:'MM/dd/yyyy':'UTC'}}
+            }@else{
+              Not set
+            }
+          </td>
+          <td><a [routerLink]="['/bundles', bundle.id]">Otvori</a></td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="5">Nema bundlova u ovoj prodavnici</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

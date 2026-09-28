@@ -1,1 +1,131 @@
-<p>bundle-detail works!</p>
+@if(bundle(); as currentBundle){
+  <a [routerLink]="['/stores', currentBundle.store_id]" class="back-link">Nazad na prodavnicu</a>
+} @else {
+  <a [routerLink]="['/stores']" class="back-link">Nazad na prodavnice</a>
+}
+
+@if(isLoading()){
+  <p>Loading..</p>
+}
+
+@if(errorMessage() !== ''){
+  <p class="error">{{errorMessage()}}</p>
+}
+
+@if(bundle(); as currentBundle){
+  <h1> {{currentBundle.name}}</h1>
+
+  @if(currentBundle.description !== null){
+    <p class="muted">{{ currentBundle.description}}</p>
+  }
+
+  <div class="stats">
+    <div class="stat-box">
+      <span class="stat-label">Ukupna Vrednost :</span>
+      <span class="stat-value">{{ currentBundle.total_value | currency}}</span>
+    </div>
+
+    <div class="stat-box">
+      <span class="stat-label">Broj Kupona :</span>
+      <span class="stat-value">{{ currentBundle.number_of_codes}}</span>
+    </div>
+
+    <div class="stat-box">
+      <span class="stat-label">Datum isteka</span>
+      <span class="stat-value">
+          @if (currentBundle.expires_at !== null) {
+            {{ currentBundle.expires_at | date:'MM/dd/yyyy':'UTC' }}
+          } @else {
+            Nije postavljen
+          }
+        </span>
+    </div>
+  </div>
+
+  <h2>Kuponi</h2>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+      <tr>
+        <th>Kod</th>
+        <th>Primalac</th>
+        <th>Email</th>
+        <th>Iznos</th>
+        <th>Datum slanja</th>
+        <th>Posalji odmah</th>
+        <th>Status</th>
+        <th>Inicijalni poslat</th>
+        <th>Reminder poslat</th>
+        <th>Istice</th>
+        <th>Prijavljen</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (coupon of coupons(); track coupon.id) {
+          <tr>
+            <td>{{ coupon.code }}</td>
+            <td>{{ coupon.receiver_name }}</td>
+            <td>{{ coupon.receiver_email }}</td>
+            <td>{{ coupon.discount_amount | currency }}</td>
+            <td>
+              @if (coupon.send_date !== null) {
+                {{ coupon.send_date | date:'MM/dd/yyyy':'UTC' }}
+              } @else {
+                /
+              }
+            </td>
+            <td>
+              @if (coupon.send_immediately) {
+                <span class="badge badge-yes">Da</span>
+              } @else {
+                <span class="badge badge-neutral">Ne</span>
+              }
+            </td>
+            <td>
+              @if (coupon.is_expired) {
+                <span class="badge badge-expired">Istekao</span>
+              } @else if (coupon.is_used) {
+                <span class="badge badge-used">Iskoriscen</span>
+              } @else {
+                <span class="badge badge-unused">Neiskoriscen</span>
+              }
+            </td>
+            <td>
+              @if (coupon.email_sent_at !== null) {
+                {{ coupon.email_sent_at | date:'MM/dd/yyyy':'UTC' }}
+              } @else {
+                /
+              }
+            </td>
+            <td>
+              @if (coupon.last_sent_at !== null) {
+                {{ coupon.last_sent_at | date:'MM/dd/yyyy':'UTC' }}
+              } @else {
+                /
+              }
+            </td>
+            <td>
+              @if (coupon.expires_at !== null) {
+                {{ coupon.expires_at | date:'MM/dd/yyyy':'UTC' }}
+              } @else {
+                /
+              }
+            </td>
+            <td>
+              @if (coupon.subscribed) {
+                <span class="badge badge-yes">Da</span>
+              } @else {
+                <span class="badge badge-no">Ne</span>
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="11">Ovaj bundle nema kupone.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

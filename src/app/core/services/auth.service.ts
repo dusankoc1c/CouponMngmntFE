@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { User } from '../models/user.model';
+import { environment } from '../../../environments/environment';
 
 
 interface LoginResponse {
@@ -13,7 +14,7 @@ interface LoginResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl: string = 'http://127.0.0.1:8000/api';
+  private apiUrl: string = environment.apiUrl;
   private http = inject(HttpClient);
 
   login(email: string, password: string): Observable<LoginResponse> {
@@ -64,6 +65,8 @@ export class AuthService {
     localStorage.removeItem('api_token');
     localStorage.removeItem('current_user');
   }
+
+
 
   isLoggedIn(): boolean {
     const token = this.getToken();

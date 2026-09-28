@@ -2,7 +2,7 @@ export interface Coupon {
   id: number;
   bundle_id: number;
   code: string;
-  discount_amount: number;
+  discount_amount: number | string;
   receiver_name : string | null;
   receiver_email : string | null;
   send_date : string | null;

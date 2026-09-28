@@ -1,0 +1,14 @@
+<nav class="navbar">
+  <a routerLink="/stores" class="brand">Coupon Manager</a>
+
+  <div class="navbar-right">
+    @if(currentUser !== null){
+      <span>{{ currentUser.name }}</span>
+    }
+    <button type="button" (click)="onLogout()">Log Out</button>
+  </div>
+</nav>
+
+<main class="content">
+  <router-outlet />
+</main>
