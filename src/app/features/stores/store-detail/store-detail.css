@@ -9,7 +9,6 @@
   color: #888888;
 }
 
-/* Kutije sa brojevima */
 .stats {
   display: flex;
   flex-wrap: wrap;

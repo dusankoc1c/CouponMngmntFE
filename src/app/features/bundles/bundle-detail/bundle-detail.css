@@ -34,7 +34,6 @@
   font-weight: 700;
 }
 
-/* Tabela ima puno kolona, pa se na uzem ekranu klizi horizontalno */
 .table-wrapper {
   overflow-x: auto;
 }
