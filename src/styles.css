@@ -86,7 +86,6 @@ h1, h2, h3 {
   background: var(--color-surface);
   color: var(--color-text);
   border-color: var(--color-border);
-  ove
 }
 
 .btn-secondary:hover {
