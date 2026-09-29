@@ -1,0 +1,38 @@
+<div class="modal-overlay">
+  <div class="modal-box">
+    <h2>Novi Kupon</h2>
+
+    @if (errorMessage() !== '') {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label> Ime primaoca</label>
+      <input type="text" formControlName="receiver_name">
+
+      <label> Email primaoca</label>
+      <input type="email" formControlName="receiver_email">
+
+      <label> Iznos</label>
+      <input type="number" step="0.01" min="0" formControlName="discount_amount">
+
+      <label> Datum Slanja</label>
+      <input type="date" formControlName="send_date">
+
+      <label>
+        <input type="checkbox" formControlName="send_immediately">
+        Posalji Odmah
+      </label>
+
+      <label> Datum isteka</label>
+      <input type="date" formControlName="expires_at">
+
+      <div class="modal-actions">
+        <button type="button" (click)="onCancel()">Otkazi</button>
+        <button type="submit" [disabled]="isSaving()">Sacuvaj</button>
+      </div>
+
+    </form>
+
+  </div>
+</div>

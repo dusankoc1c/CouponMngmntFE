@@ -1,0 +1,25 @@
+<div class="modal-overlay">
+  <div class="modal-box">
+    <h2>Izmeni prodavnicu</h2>
+
+    @if (errorMessage() !== '') {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label>Naziv prodavnice</label>
+      <input type="text" formControlName="name">
+
+      <label>Opis</label>
+      <textarea formControlName="description"></textarea>
+
+      <label>Broj dana do reminder mejla (prazno = 20 podrazumevano)</label>
+      <input type="number" formControlName="reminder_days">
+
+      <div class="modal-actions">
+        <button type="button" (click)="onCancel()">Otkazi</button>
+        <button type="submit" [disabled]="isSaving()">Sacuvaj izmene</button>
+      </div>
+    </form>
+  </div>
+</div>

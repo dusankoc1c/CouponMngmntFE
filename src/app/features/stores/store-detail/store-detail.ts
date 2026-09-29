@@ -6,9 +6,11 @@ import { Bundle } from '../../../core/models/bundle.model';
 import { forkJoin } from 'rxjs';
 import { BundleApiService } from '../../../core/services/bundle-api.service';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { StoreEditModal } from '../store-edit-modal/store-edit-modal';
+import { BundleAddModal } from '../../bundles/bundle-add-modal/bundle-add-modal';
 
 @Component({
-  imports: [CurrencyPipe, DatePipe, RouterLink],
+  imports: [CurrencyPipe, DatePipe, RouterLink, StoreEditModal, BundleAddModal],
   selector: 'app-store-detail',
   styleUrl: './store-detail.css',
   templateUrl: './store-detail.html',
@@ -22,16 +24,17 @@ export class StoreDetail {
   bundles = signal<Bundle[]>([]);
   totalValue = signal(0);
   remainingValue = signal<number | null>(null);
-  isLoadding = signal<boolean>(true);
+  isLoading = signal<boolean>(true);
   errorMessage = signal('');
 
+  storeId = signal(0);
   ngOnInit() {
     const idFromUrl = this.route.snapshot.paramMap.get('id');
-    const storeId = Number(idFromUrl);
+    this.storeId.set(Number(idFromUrl));
 
     forkJoin({
-      store: this.storeApiService.getStore(storeId),
-      bundles: this.bundleApiService.getBundlesForStore(storeId),
+      store: this.storeApiService.getStore(this.storeId()),
+      bundles: this.bundleApiService.getBundlesForStore(this.storeId()),
     }).subscribe({
       next: (result) => {
         let total: number = 0;
@@ -51,10 +54,10 @@ export class StoreDetail {
           this.remainingValue.set(null);
         }
 
-        this.isLoadding.set(false);
+        this.isLoading.set(false);
       },
       error: (error) => {
-        this.isLoadding.set(false);
+        this.isLoading.set(false);
 
         if (error.status === 403) {
           this.errorMessage.set('Nije autorizovano');
@@ -67,5 +70,70 @@ export class StoreDetail {
     });
   }
 
-  protected readonly isSecureContext = isSecureContext;
+  onDeleteBundle(bundleId: number) {
+    const confirmed = confirm('Obrisi ovaj bundle?');
+    if (!confirmed) {
+      return;
+    }
+
+    this.bundleApiService.deleteBundle(bundleId).subscribe({
+      next: (result) => {
+        const remainingBundles = this.bundles().filter((bundle) => bundle.id !== bundleId);
+
+        this.bundles.set(remainingBundles);
+        this.updateTotalValue(remainingBundles, this.store());
+      },
+      error: (error) => {
+        alert('Brisanje nije uspelo');
+      },
+    });
+  }
+
+  private updateTotalValue(bundles: Bundle[], store: Store | null) {
+    let total: number = 0;
+    let index: number;
+
+    for (index = 0; index < bundles.length; index++) {
+      total = total + Number(bundles[index].total_value);
+    }
+
+    this.totalValue.set(total);
+
+    if (store != null && store.value_limit !== null) {
+      this.remainingValue.set(Number(store.value_limit) - total);
+    } else {
+      this.remainingValue.set(null);
+    }
+  }
+
+  isEditModalOpen = signal(false);
+
+  onOpenEditModal() {
+    this.isEditModalOpen.set(true);
+  }
+
+  onEditModalClose() {
+    this.isEditModalOpen.set(false);
+  }
+
+  onEditModalSaved(updatedStore: Store) {
+    this.store.set(updatedStore);
+    this.isEditModalOpen.set(false);
+  }
+
+  isAddBundleModalOpen = signal(false);
+  onOpenAddBundleModal() {
+    this.isAddBundleModalOpen.set(true);
+  }
+
+  onAddBundleModalClosed() {
+    this.isAddBundleModalOpen.set(false);
+  }
+
+  onBundleSaved(newBundle: Bundle): void {
+    const updatedBundles = [...this.bundles(), newBundle];
+    this.bundles.set(updatedBundles);
+    this.updateTotalValue(updatedBundles, this.store());
+    this.isAddBundleModalOpen.set(false);
+  }
 }

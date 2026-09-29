@@ -1,34 +1,32 @@
-/* Kutija koja centrira formu na ekranu */
+
 .login-container {
-  max-width: 360px;
-  margin: 80px auto;
-  padding: 2rem;
-  border: 1px solid #dddddd;
-  border-radius: 8px;
+  max-width: 380px;
+  margin: 10vh auto 0 auto;
+  padding: var(--space-xl);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  animation: card-enter 250ms var(--ease-out);
 }
 
-label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: 600;
+.login-container h1 {
+  text-align: center;
+  font-size: 1.4rem;
 }
 
-input {
+.login-container button {
   width: 100%;
-  padding: 0.5rem;
-  margin-top: 0.25rem;
-  box-sizing: border-box;
+  margin-top: var(--space-lg);
 }
 
-button {
-  width: 100%;
-  margin-top: 1.5rem;
-  padding: 0.6rem;
-  cursor: pointer;
+@keyframes card-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Poruka o gresci */
-.error {
-  color: #c0392b;
-  margin-top: 1rem;
+@media (prefers-reduced-motion: reduce) {
+  .login-container {
+    animation: none;
+  }
 }

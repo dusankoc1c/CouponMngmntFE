@@ -14,18 +14,18 @@
 
 <div class="cards">
   @for (store of stores(); track store.id) {
-      <a class="card" [routerLink]="['/stores', store.id]">
-        <h3>{{store.name}}</h3>
+    <a class="card" [routerLink]="['/stores', store.id]">
+      <h3>{{ store.name }}</h3>
 
-        @if(store.description !== null){
-          <p>{{ store.description}}</p>
-        } @else {
-          <p class="muted">Nema Opisa</p>
-        }
+      @if (store.description !== null) {
+        <p>{{ store.description }}</p>
+      } @else {
+        <p class="muted">Bez opisa</p>
+      }
 
-        @if (store.value_limit !== null){
-          <span class="badge"> Limit: {{store.value_limit | currency}}</span>
-        }
-      </a>
+      @if (store.value_limit !== null) {
+        <span class="badge badge-neutral">Limit: {{ store.value_limit | currency }}</span>
+      }
+    </a>
   }
 </div>

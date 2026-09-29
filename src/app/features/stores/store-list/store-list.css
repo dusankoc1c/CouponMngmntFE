@@ -1,34 +1,12 @@
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1rem;
+h1 {
+  margin-bottom: var(--space-lg);
 }
 
-.card {
-  display: block;
-  padding: 1rem;
-  border: 1px solid #dddddd;
-  border-radius: 8px;
-  text-decoration: none;
-  color: inherit;
+.card h3 {
+  margin-bottom: var(--space-xs);
 }
 
-.card:hover {
-  border-color: #4f46e5;
-}
-
-.muted {
-  color: #888888;
-}
-
-.badge {
-  display: inline-block;
-  padding: 0.2rem 0.6rem;
-  border-radius: 999px;
-  background: #eef2ff;
-  font-size: 0.85rem;
-}
-
-.error {
-  color: #c0392b;
+.card p {
+  font-size: 0.9rem;
+  margin: 0 0 var(--space-sm) 0;
 }

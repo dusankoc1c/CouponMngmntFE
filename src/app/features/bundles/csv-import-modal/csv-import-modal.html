@@ -1,0 +1,21 @@
+<div class="modal-overlay">
+  <div class="modal-box">
+    <h2>Import kupona CSV</h2>
+
+    <p class="modal-subtitle">
+    </p>
+
+    @if(errorMessage() !== null){
+      <p class="error">{{errorMessage()}}</p>
+    }
+
+    <label>CSV fajl</label>
+
+    <input type="file" accept=".csv, .txt" (change)="onFileSelected($event)">
+
+    <div class="modal-actions">
+      <button type="button" (click)="onCancel()">Otakzi</button>
+      <button type="button" [disabled]="isUploading()" (click)="onSubmit()">Import</button>
+    </div>
+  </div>
+</div>

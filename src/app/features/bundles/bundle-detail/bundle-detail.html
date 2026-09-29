@@ -4,6 +4,10 @@
   <a [routerLink]="['/stores']" class="back-link">Nazad na prodavnice</a>
 }
 
+@if (successMessage() !== '') {
+  <p class="success">{{ successMessage() }}</p>
+}
+
 @if(isLoading()){
   <p>Loading..</p>
 }
@@ -44,6 +48,12 @@
 
   <h2>Kuponi</h2>
 
+  <div class="header-actions">
+    <button type="button" class="btn btn-primary" (click)="onOpenAddCouponModal()">Dodaj Kupon</button>
+    <button type="button" class="btn btn-secondary" (click)="onResendAll()">Resend All</button>
+    <button type="button" class="btn btn-secondary" (click)="onOpenImportModal()">Import from CSV</button>
+  </div>
+
   <div class="table-wrapper">
     <table>
       <thead>
@@ -59,6 +69,7 @@
         <th>Reminder poslat</th>
         <th>Istice</th>
         <th>Prijavljen</th>
+        <th class="actions-cell">Akcije</th>
       </tr>
       </thead>
       <tbody>
@@ -119,6 +130,30 @@
                 <span class="badge badge-no">Ne</span>
               }
             </td>
+            <td class="actions-cell">
+              <div class="dropdown">
+                <button type="button" class="btn btn-secondary" (click)="toggleDropdown(coupon.id, $event)">
+                  Akcije &#9662;
+                </button>
+
+                @if (openDropdownId() === coupon.id) {
+                  <div class="dropdown-menu">
+                    <button type="button" class="dropdown-item" (click)="onToggleUsed(coupon.id)">
+                      @if (coupon.is_used) {
+                        Oznaci kao neiskoriscen
+                      } @else {
+                        Oznaci kao iskoriscen
+                      }
+                    </button>
+
+                    @if (coupon.receiver_email !== null && !coupon.is_used && !coupon.is_expired) {
+                      <button type="button" class="dropdown-item" (click)="onResendInitial(coupon.id)">Resend Initial</button>
+                      <button type="button" class="dropdown-item" (click)="onResendReminder(coupon.id)">Resend Reminder</button>
+                    }
+                  </div>
+                }
+              </div>
+            </td>
           </tr>
         } @empty {
           <tr>
@@ -128,4 +163,20 @@
       </tbody>
     </table>
   </div>
+}
+
+@if (isAddCouponModalOpen()) {
+  <app-coupon-add-modal
+    [bundleId]="bundleId()"
+    (closed)="onAddCouponModalClosed()"
+    (saved)="onCouponSaved($event)">
+  </app-coupon-add-modal>
+}
+
+@if (isImportModalOpen()) {
+  <app-csv-import-modal
+    [bundleId]="bundleId()"
+    (closed)="onImportModalClosed()"
+    (imported)="onImportFinished()">
+  </app-csv-import-modal>
 }

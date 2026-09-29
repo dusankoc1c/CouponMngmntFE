@@ -2,7 +2,7 @@
  Nazad na prodavnice
 </a>
 
-@if(isLoadding())
+@if(isLoading())
 {
   <p> Ucitavanje... </p>
 }
@@ -37,40 +37,64 @@
     }
   </div>
 
+  <div class="header-actions">
+    <button type="button" class="btn btn-secondary" (click)="onOpenEditModal()">Izmeni prodavnicu</button>
+    <button type="button" class="btn btn-primary" (click)="onOpenAddBundleModal()">Dodaj bundle</button>
+  </div>
+
   <h2>Bundles</h2>
 
   <table>
     <thead>
-      <tr>
-        <th>Kreiran</th>
-        <th>Naziv</th>
-        <th>Broj Kupona</th>
-        <th>Ukupna Vrednost </th>
-        <th>Datum ISteka</th>
-      </tr>
+    <tr>
+      <th>Kreiran</th>
+      <th>Naziv</th>
+      <th>Broj kupona</th>
+      <th>Ukupna vrednost</th>
+      <th>Datum isteka</th>
+      <th>Akcije</th>
+    </tr>
     </thead>
-
     <tbody>
-      @for (bundle of bundles(); track bundle.id){
+      @for (bundle of bundles(); track bundle.id) {
         <tr>
           <td>{{ bundle.created_at | date:'MM/dd/yyyy':'UTC' }}</td>
-          <td>{{bundle.name}}</td>
-          <td>{{bundle.number_of_codes}}</td>
-          <td>{{bundle.total_value | currency}}</td>
+          <td>{{ bundle.name }}</td>
+          <td>{{ bundle.number_of_codes }}</td>
+          <td>{{ bundle.total_value | currency }}</td>
           <td>
-            @if(bundle.expires_at !== null){
-              {{ bundle.expires_at | date:'MM/dd/yyyy':'UTC'}}
-            }@else{
-              Not set
+            @if (bundle.expires_at !== null) {
+              {{ bundle.expires_at | date:'MM/dd/yyyy':'UTC' }}
+            } @else {
+              Nije postavljen
             }
           </td>
-          <td><a [routerLink]="['/bundles', bundle.id]">Otvori</a></td>
+          <td>
+            <a class="btn btn-secondary" [routerLink]="['/bundles', bundle.id]">Otvori</a>
+            <button type="button" class="btn btn-danger" (click)="onDeleteBundle(bundle.id)">Obrisi</button>
+          </td>
         </tr>
       } @empty {
         <tr>
-          <td colspan="5">Nema bundlova u ovoj prodavnici</td>
+          <td colspan="6">Ova prodavnica nema bundle-ova.</td>
         </tr>
       }
     </tbody>
   </table>
+}
+
+@if (isEditModalOpen() && store(); as currentStore) {
+  <app-store-edit-modal
+    [store]="currentStore"
+    (closed)="onEditModalClose()"
+    (saved)="onEditModalSaved($event)">
+  </app-store-edit-modal>
+}
+
+@if (isAddBundleModalOpen()) {
+  <app-bundle-add-modal
+    [storeId]="storeId()"
+    (closed)="onAddBundleModalClosed()"
+    (saved)="onBundleSaved($event)">
+  </app-bundle-add-modal>
 }

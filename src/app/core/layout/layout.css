@@ -1,9 +1,8 @@
-/* Gornja traka */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem var(--space-lg);
   background: #1f2937;
   color: #ffffff;
 }
@@ -12,17 +11,22 @@
   color: #ffffff;
   text-decoration: none;
   font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
 }
 
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-md);
 }
 
-/* Sadrzaj stranice ispod trake */
+.navbar-right span {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
 .content {
-  max-width: 1100px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: var(--space-lg);
 }
