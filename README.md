@@ -12,3 +12,17 @@
   - Login Forma
   - Store List (ucitavanje svih store-a sa info, value limit, name, desc) - samo citanje
   - Bundle List (ucitavanje svih, prewiev pojedinacnog) -- samo citanje
+## 29. Sept
+  - Actions od Bundle (delete) 
+  - Actions on Coupons (toggleUsed)
+  - Store Update (modal) 
+  - Add one Coupon (on Bundle page, modal) 
+  - Create Bundle (individualni kuponi + teir kuponi od jednom) 
+  - Send initial mail, resend initial, resend reminder 
+  - CSV import
+## 30. Sept
+  - CSV export 
+  - Send Invite 
+  - Admin Dash (lista, edit, delete) 
+  - Name for Store + number of bundles 
+  - Store : email template  (backend metoda za get, ) 
