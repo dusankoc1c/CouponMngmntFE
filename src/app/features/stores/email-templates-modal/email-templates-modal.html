@@ -1,0 +1,33 @@
+<div class="modal-overlay">
+
+  <div class="modal-box modal-box-large">
+
+    <h2>Email Template</h2>
+    @if(errorMessage() !== null){
+      <p class="error">{{errorMessage()}}</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label>Inicijalni mail</label>
+      <p class="modal-subtitle">Obavezno: {{ '{{name}}' }}, {{ '{{amount}}' }}, {{ '{{store_name}}' }}</p>
+      <textarea rows="6" formControlName="initial_email_template"></textarea>
+      @if (initialControlHasError) {
+        <p class="field-error">Fali obavezan placeholder.</p>
+      }
+
+
+      <label>Reminder mail</label>
+      <p class="modal-subtitle">Obavezno: {{ '{{name}}' }}, {{ '{{amount}}' }}, {{ '{{store_name}}' }}, {{ '{{days_left}}' }}</p>
+      <textarea rows="6" formControlName="reminder_email_template"></textarea>
+      @if (reminderControlHasError) {
+        <p class="field-error">Fali obavezan placeholder.</p>
+      }
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="isSaving()">Save</button>
+      </div>
+    </form>
+  </div>
+
+</div>

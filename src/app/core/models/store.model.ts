@@ -4,5 +4,7 @@ export interface Store {
   description: string | null;
   value_limit: number | string | null;
   reminder_days: number | null;
+  owner: string | null;
+  bundles_count : number | null;
   created_at: string;
 }

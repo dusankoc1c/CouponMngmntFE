@@ -1,0 +1,22 @@
+<div class="modal-overlay">
+  <div class="modal-box">
+    <h2>Izmeni admina</h2>
+
+    @if (errorMessage() !== '') {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label>Ime</label>
+      <input type="text" formControlName="name">
+
+      <label>Email</label>
+      <input type="email" formControlName="email">
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Otkazi</button>
+        <button type="submit" class="btn btn-primary" [disabled]="isSaving()">Sacuvaj izmene</button>
+      </div>
+    </form>
+  </div>
+</div>

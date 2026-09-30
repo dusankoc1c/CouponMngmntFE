@@ -1,0 +1,62 @@
+<a routerLink="/stores" class="back-link">&larr; Nazad na dashboard</a>
+
+<h1>Lista svih admina</h1>
+<div class="header-actions">
+  <button type="button" class="btn btn-primary" (click)="onOpenInviteModal()">Posalji Invite</button>
+</div>
+
+@if (successMessage() !== '') {
+  <p class="success">{{ successMessage() }}</p>
+}
+
+@if (isLoading()) {
+  <p>Ucitavanje...</p>
+}
+
+@if (errorMessage() !== '') {
+  <p class="error">{{ errorMessage() }}</p>
+}
+
+@if (!isLoading() && errorMessage() === '') {
+  <table>
+    <thead>
+    <tr>
+      <th>Ime</th>
+      <th>Email</th>
+      <th>Datum registracije</th>
+      <th>Akcije</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (admin of admins(); track admin.id) {
+        <tr>
+          <td>{{ admin.name }}</td>
+          <td>{{ admin.email }}</td>
+          <td>{{ admin.created_at | date:'MM/dd/yyyy':'UTC' }}</td>
+          <td>
+            <button type="button" class="btn btn-secondary" (click)="onOpenEditModal(admin)">Izmeni</button>
+            <button type="button" class="btn btn-danger" (click)="onDeleteAdmin(admin.id)">Obrisi</button>          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4">Nema admina u sistemu.</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
+
+@if (isAdminEditModalOpen() && selectedAdmin(); as currentAdmin) {
+  <app-admin-edit-modal
+    [admin]="currentAdmin"
+    (closed)="onClosedEditModal()"
+    (saved)="onAdminSaved($event)">
+  </app-admin-edit-modal>
+}
+
+@if (isInviteModalOpen()) {
+  <app-invite-modal
+    (closed)="onCloseInviteModal()"
+    (saved)="onInviteSent()">
+  </app-invite-modal>
+}

@@ -11,21 +11,33 @@
 @if(!isLoading() && errorMessage() === '' && stores().length === 0){
   <p>Nema prodavnica </p>
 }
-
 <div class="cards">
   @for (store of stores(); track store.id) {
     <a class="card" [routerLink]="['/stores', store.id]">
-      <h3>{{ store.name }}</h3>
+      <div class="card-top">
+        <h3>{{ store.name }}</h3>
+
+        @if (store.owner !== null) {
+          <div class="owner">
+            <span class="owner-avatar">{{ store.owner.charAt(0) }}</span>
+            <span>{{ store.owner }}</span>
+          </div>
+        }
+      </div>
 
       @if (store.description !== null) {
-        <p>{{ store.description }}</p>
+        <p class="description">{{ store.description }}</p>
       } @else {
-        <p class="muted">Bez opisa</p>
+        <p class="description muted">Bez opisa</p>
       }
 
-      @if (store.value_limit !== null) {
-        <span class="badge badge-neutral">Limit: {{ store.value_limit | currency }}</span>
-      }
+      <div class="card-footer">
+        <span class="badge badge-neutral">{{ store.bundles_count }} bundle-ova</span>
+
+        @if (store.value_limit !== null) {
+          <span class="badge badge-limit">Limit: {{ store.value_limit | currency }}</span>
+        }
+      </div>
     </a>
   }
 </div>

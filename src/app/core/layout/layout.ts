@@ -26,4 +26,8 @@ export class Layout {
       },
     });
   }
+
+  isSuperAdmin() {
+    return this.authService.isSuperAdmin();
+  }
 }

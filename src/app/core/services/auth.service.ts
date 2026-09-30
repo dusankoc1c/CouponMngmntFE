@@ -66,10 +66,13 @@ export class AuthService {
     localStorage.removeItem('current_user');
   }
 
-
-
   isLoggedIn(): boolean {
     const token = this.getToken();
     return token != null;
+  }
+
+  isSuperAdmin(): boolean {
+    const user = this.getUser();
+    return user !== null && user.role.includes('superadmin');
   }
 }

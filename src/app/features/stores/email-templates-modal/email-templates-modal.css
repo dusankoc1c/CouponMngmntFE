@@ -1,0 +1,16 @@
+.modal-subtitle {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: var(--space-xs) 0;
+}
+
+.field-error {
+  color: var(--color-danger-text);
+  font-size: 0.8rem;
+  margin: var(--space-xs) 0 0 0;
+}
+
+textarea {
+  font-family: monospace;
+  resize: vertical;
+}

@@ -1,0 +1,22 @@
+<div class="modal-overlay">
+  <div class="modal-box">
+    <h2>Posalji invite</h2>
+
+    @if (errorMessage() !== '') {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label>Email</label>
+      <input type="email" formControlName="email">
+
+      <label>Limit vrednosti prodavnice ($, opciono)</label>
+      <input type="number" min="0" step="0.01" formControlName="value_limit">
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Otkazi</button>
+        <button type="submit" class="btn btn-primary" [disabled]="isSending()">Posalji</button>
+      </div>
+    </form>
+  </div>
+</div>

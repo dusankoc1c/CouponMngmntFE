@@ -40,6 +40,8 @@
   <div class="header-actions">
     <button type="button" class="btn btn-secondary" (click)="onOpenEditModal()">Izmeni prodavnicu</button>
     <button type="button" class="btn btn-primary" (click)="onOpenAddBundleModal()">Dodaj bundle</button>
+    <button type="button" class="btn btn-secondary" (click)="onExportCouponModalOpen()">Export</button>
+    <button type="button" class="btn btn-secondary" [disabled]="isLoadingTemplates()" (click)="onOpenEmailTemplatesModal()">Email Templejti</button>
   </div>
 
   <h2>Bundles</h2>
@@ -97,4 +99,22 @@
     (closed)="onAddBundleModalClosed()"
     (saved)="onBundleSaved($event)">
   </app-bundle-add-modal>
+}
+
+@if (isExportCouponModalOpen()) {
+  <app-store-export-modal
+    [storeId]="storeId()"
+    [bundles]="bundles()"
+    (closed)="onExportCouponModalClosed()">
+  </app-store-export-modal>
+}
+
+@if (isEmailTemplatesModalOpen()) {
+  <app-email-templates-modal
+    [store]="store()!"
+    [initialTemplate]="initialEmailTemplate()"
+    [reminderTemplate]="reminderEmailTemplate()"
+    (closed)="onEmailTemplatesModalClosed()"
+    (saved)="onEmailTemplatesModalSaved()">
+  </app-email-templates-modal>
 }

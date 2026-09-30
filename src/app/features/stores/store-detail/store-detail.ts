@@ -8,9 +8,19 @@ import { BundleApiService } from '../../../core/services/bundle-api.service';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { StoreEditModal } from '../store-edit-modal/store-edit-modal';
 import { BundleAddModal } from '../../bundles/bundle-add-modal/bundle-add-modal';
+import { StoreExportModal } from '../store-export-modal/store-export-modal';
+import { EmailTemplatesModal } from '../email-templates-modal/email-templates-modal';
 
 @Component({
-  imports: [CurrencyPipe, DatePipe, RouterLink, StoreEditModal, BundleAddModal],
+  imports: [
+    CurrencyPipe,
+    DatePipe,
+    RouterLink,
+    StoreEditModal,
+    BundleAddModal,
+    StoreExportModal,
+    EmailTemplatesModal,
+  ],
   selector: 'app-store-detail',
   styleUrl: './store-detail.css',
   templateUrl: './store-detail.html',
@@ -135,5 +145,44 @@ export class StoreDetail {
     this.bundles.set(updatedBundles);
     this.updateTotalValue(updatedBundles, this.store());
     this.isAddBundleModalOpen.set(false);
+  }
+
+  isExportCouponModalOpen = signal(false);
+
+  onExportCouponModalOpen() {
+    this.isExportCouponModalOpen.set(true);
+  }
+  onExportCouponModalClosed() {
+    this.isExportCouponModalOpen.set(false);
+  }
+
+  isEmailTemplatesModalOpen = signal(false);
+  initialEmailTemplate = signal('');
+  reminderEmailTemplate = signal('');
+  isLoadingTemplates = signal(false);
+
+  onOpenEmailTemplatesModal() {
+    this.isLoadingTemplates.set(true);
+
+    this.storeApiService.getEmailTemplate(this.storeId()).subscribe({
+      next: (result) => {
+        this.initialEmailTemplate.set(result.initial_email_template);
+        this.reminderEmailTemplate.set(result.reminder_email_template);
+        this.isLoadingTemplates.set(false);
+        this.isEmailTemplatesModalOpen.set(true);
+      },
+      error: () => {
+        this.isLoadingTemplates.set(false);
+        alert('Templjeti nisu sacuvani');
+      },
+    });
+  }
+
+  onEmailTemplatesModalClosed() {
+    this.isEmailTemplatesModalOpen.set(false);
+  }
+
+  onEmailTemplatesModalSaved() {
+    this.isEmailTemplatesModalOpen.set(false);
   }
 }

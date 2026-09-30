@@ -6,6 +6,9 @@
       <span>{{ currentUser.name }}</span>
     }
     <button type="button" class="btn btn-secondary" (click)="onLogout()">Odjavi se</button>
+    @if (isSuperAdmin()) {
+      <a routerLink="/admins" class="btn btn-secondary">Admin Dash</a>
+    }
   </div>
 </nav>
 

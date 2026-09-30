@@ -1,0 +1,37 @@
+.modal-subtitle {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-top: -0.5rem;
+}
+
+.filter-row {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.filter-row > div {
+  flex: 1;
+}
+
+.bundle-list {
+  margin-top: var(--space-lg);
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-sm);
+}
+
+.bundle-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: normal;
+  margin-top: var(--space-xs);
+}
+
+.bundle-item input {
+  width: auto;
+  margin: 0;
+}
