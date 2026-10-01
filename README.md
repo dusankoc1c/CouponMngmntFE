@@ -25,4 +25,11 @@
   - Send Invite 
   - Admin Dash (lista, edit, delete) 
   - Name for Store + number of bundles 
-  - Store : email template  (backend metoda za get, ) 
+  - Store : email template  (backend metoda za get, )
+## 1. Okt
+- Unsubsribe link preko Angular 
+- Export All superadmin 
+- HTTP interceptor jos jedan za nevazece tokene error
+- Edit Kupona 
+- Add Store 
+- Bag pri unosu bundla (unose se dva?) 
