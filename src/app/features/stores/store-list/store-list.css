@@ -84,3 +84,6 @@ h1 {
   background: #ede9fe;
   color: #6d28d9;
 }
+.header-actions {
+  margin-bottom: var(--space-lg);
+}

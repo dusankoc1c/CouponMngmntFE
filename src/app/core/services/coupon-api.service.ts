@@ -49,6 +49,18 @@ export class CouponApiService {
   importCsv(bundleId: number, file: File) {
     const formData = new FormData();
     formData.append('csv_file', file);
-    return this.http.post(this.apiUrl + '/bundles/' + bundleId + '/import-codes', formData)
+    return this.http.post(this.apiUrl + '/bundles/' + bundleId + '/import-codes', formData);
+  }
+
+  getCoupon(couponId: number): Observable<Coupon> {
+    return this.http
+      .get<ApiResponse<Coupon>>(this.apiUrl + '/coupons/' + couponId)
+      .pipe(map((response) => response.data));
+  }
+
+  updateCoupon(couponId: number, data: CreateCouponData): Observable<Coupon> {
+    return this.http
+      .put<ApiResponse<Coupon>>(this.apiUrl + '/coupons/' + couponId, data)
+      .pipe(map((response) => response.data));
   }
 }

@@ -82,7 +82,7 @@
 
       <div class="modal-actions">
         <button type="button" (click)="onCancel()">Otkazi</button>
-        <button type="submit" (click)="onSubmit()">Save</button>
+        <button type="submit" [disabled]="isSaving()">Save</button>
       </div>
 
     </form>

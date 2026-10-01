@@ -11,6 +11,11 @@
 @if(!isLoading() && errorMessage() === '' && stores().length === 0){
   <p>Nema prodavnica </p>
 }
+
+<div class="header-actions">
+  <button type="button" class="btn btn-primary" routerLink="/stores/add">Dodaj prodavnicu</button>
+</div>
+
 <div class="cards">
   @for (store of stores(); track store.id) {
     <a class="card" [routerLink]="['/stores', store.id]">

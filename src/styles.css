@@ -30,7 +30,6 @@
   --ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
-
 * {
   box-sizing: border-box;
 }
@@ -48,7 +47,6 @@ h1, h2, h3 {
   letter-spacing: -0.01em;
 }
 
-
 .btn {
   display: inline-flex;
   align-items: center;
@@ -62,7 +60,6 @@ h1, h2, h3 {
   transition: transform var(--duration-fast) ease, background-color var(--duration-fast) ease;
 }
 
-/* Pritisak na dugme — trenutan odgovor, iz apple-design smernica */
 .btn:active {
   transform: scale(0.97);
 }
@@ -173,7 +170,6 @@ tbody tr:hover {
 .badge-no, .badge-unused { background: var(--color-danger-bg); color: var(--color-danger-text); }
 .badge-expired, .badge-neutral { background: var(--color-neutral-bg); color: var(--color-neutral-text); }
 
-
 label {
   display: block;
   margin-top: var(--space-md);
@@ -238,7 +234,6 @@ input[type="checkbox"] {
   margin-top: var(--space-lg);
 }
 
-
 @keyframes overlay-fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -277,8 +272,6 @@ input[type="checkbox"] {
   }
 }
 
-
-
 .dropdown {
   position: relative;
   display: inline-block;
@@ -292,8 +285,9 @@ input[type="checkbox"] {
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow-modal);
-  min-width: 200px;
-  z-index: 50;
+  min-width: 180px;
+  max-width: 220px;
+  z-index: 300;
   overflow: hidden;
   animation: modal-enter 150ms var(--ease-out);
 }
@@ -305,21 +299,11 @@ input[type="checkbox"] {
   padding: 0.6rem 0.9rem;
   border: none;
   background: none;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  white-space: normal;
   cursor: pointer;
 }
 
 .dropdown-item:hover {
-  background: var(--color-bg);
-}
-
-.actions-cell {
-  position: sticky;
-  right: 0;
-  background: var(--color-surface);
-  box-shadow: -4px 0 6px -4px rgba(0, 0, 0, 0.1);
-}
-
-th.actions-cell {
   background: var(--color-bg);
 }

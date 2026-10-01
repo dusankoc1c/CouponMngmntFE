@@ -138,6 +138,7 @@
 
                 @if (openDropdownId() === coupon.id) {
                   <div class="dropdown-menu">
+                    <a class="dropdown-item" [routerLink]="['/coupons', coupon.id, 'edit']">Izmeni</a>
                     <button type="button" class="dropdown-item" (click)="onToggleUsed(coupon.id)">
                       @if (coupon.is_used) {
                         Oznaci kao neiskoriscen

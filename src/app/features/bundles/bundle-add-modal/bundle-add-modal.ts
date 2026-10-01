@@ -125,7 +125,7 @@ export class BundleAddModal {
       })
       .subscribe({
         next: (newBundle: Bundle) => {
-          this.isSaving.set(true);
+          this.isSaving.set(false);
           this.saved.emit(newBundle);
         },
         error: (error) => {

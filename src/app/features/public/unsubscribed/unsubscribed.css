@@ -1,0 +1,10 @@
+.message-container {
+  max-width: 420px;
+  margin: 15vh auto 0 auto;
+  padding: var(--space-xl);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}

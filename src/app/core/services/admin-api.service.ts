@@ -31,4 +31,9 @@ export class AdminApiService {
   sendInvite(data: {email: string; value_limit : number | null}){
     return this.http.post(this.apiUrl + '/invite', data)
   }
+
+  exportAll(data: {store_ids: number[]; created_from? : string; created_to? : string; amount_min : number; amount_max : number;}):Observable<Blob>
+  {
+    return this.http.post(this.apiUrl + '/export-all', data, {responseType: 'blob'});
+  }
 }

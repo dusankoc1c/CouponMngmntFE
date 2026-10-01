@@ -9,9 +9,21 @@
     @if (isSuperAdmin()) {
       <a routerLink="/admins" class="btn btn-secondary">Admin Dash</a>
     }
+    @if (isSuperAdmin()) {
+      <button type="buttton" class="btn btn-secondary" [disabled]="isLoadginStores()" (click)="onOpenExportAllModal()" >Export All</button>
+    }
   </div>
 </nav>
 
 <main class="content">
   <router-outlet />
 </main>
+
+
+
+@if (isExportAllModalOpen()) {
+  <app-export-all-modal
+    [stores]="allStores()"
+    (closed)="onExportAllModalClose()">
+  </app-export-all-modal>
+}

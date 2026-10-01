@@ -64,4 +64,9 @@ export class StoreApiService {
   ) {
     return this.http.put(this.apiUrl + '/stores/' + storeId + '/email-templates', data);
   }
+
+  createStore(data: {name: string; description: string | null}): Observable<Store>{
+    return this.http.post<ApiResponse<Store>>(this.apiUrl + "/stores", data)
+      .pipe(map((response) => response.data));
+  }
 }

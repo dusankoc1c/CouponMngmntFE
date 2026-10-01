@@ -1,0 +1,60 @@
+<div class="modal-overlay">
+  <div class="modal-box">
+    <h2>Export svih prodavnica</h2>
+    <p class="modal-subtitle">Izaberi prodavnice za export</p>
+
+    @if (errorMessage() !== '') {
+      <p class="error">{{ errorMessage() }}</p>
+    }
+
+    <div class="filter-row">
+      <div>
+        <label>Datum kreiranja</label>
+        <input type="date" [(ngModel)]="createdFrom" name="createdFrom">
+      </div>
+
+      <div>
+        <label>Krajnji datum</label>
+        <input type="date" [(ngModel)]="createdTo" name="createdTo">
+      </div>
+    </div>
+
+    <div class="filter-row">
+      <div>
+        <label>Status kupona</label>
+        <select [(ngModel)]="status" name="status">
+          <option value="all">Svi</option>
+          <option value="unused">Neiskorisceni</option>
+          <option value="used">Iskorisceni</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Cena od</label>
+        <input type="number" step="0.01" [(ngModel)]="amount_min" name="amountMin">
+      </div>
+
+      <div>
+        <label>Cena do</label>
+        <input type="number" step="0.01" [(ngModel)]="amount_max" name="amountMax">
+      </div>
+    </div>
+
+    <div class="bundle-list">
+      @for (store of stores; track store.id) {
+        <label class="bundle-item">
+          <input type="checkbox" [checked]="isStoreSelected(store.id)" (change)="onToggleStore(store.id)">
+          <span>{{ store.name }}</span>
+        </label>
+      } @empty {
+        <p class="muted">Nema prodavnica za export.</p>
+      }
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="btn btn-secondary" (click)="onClearFilters()">Obrisi filtere</button>
+      <button type="button" class="btn btn-secondary" (click)="onCancel()">Otkazi</button>
+      <button type="button" class="btn btn-primary" [disabled]="isExporting()" (click)="onExport()">Export CSV</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<a [routerLink]="['/bundles', bundleId()]" class="back-link">&larr; Nazad na bundle</a>
+
+<h1>Izmeni kupon</h1>
+
+@if (isLoading()) {
+  <p>Ucitavanje...</p>
+}
+
+@if (errorMessage() !== '') {
+  <p class="error">{{ errorMessage() }}</p>
+}
+
+@if (!isLoading()) {
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="edit-form">
+    <label>Ime primaoca</label>
+    <input type="text" formControlName="receiver_name">
+
+    <label>Email primaoca</label>
+    <input type="email" formControlName="receiver_email">
+
+    <label>Iznos ($)</label>
+    <input type="number" step="0.01" min="0" formControlName="discount_amount">
+
+    <label>Datum slanja (opciono)</label>
+    <input type="date" formControlName="send_date">
+
+    <label>
+      <input type="checkbox" formControlName="send_immediately">
+      Posalji odmah
+    </label>
+
+    <label>Datum isteka</label>
+    <input type="date" formControlName="expires_at">
+
+    <div class="modal-actions">
+      <button type="button" class="btn btn-secondary" [routerLink]="['/bundles', bundleId()]">Otkazi</button>
+      <button type="submit" class="btn btn-primary" [disabled]="isSaving()">Sacuvaj izmene</button>
+    </div>
+  </form>
+}
