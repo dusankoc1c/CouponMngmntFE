@@ -32,4 +32,8 @@
 - HTTP interceptor jos jedan za nevazece tokene error
 - Edit Kupona 
 - Add Store 
-- Bag pri unosu bundla (unose se dva?) 
+- Bag pri unosu bundla (unose se dva?)
+## 2. Okt
+  - Finalne izmene i resenja bugova (slanje mejlova odmah)
+  - registracija preko angulara
+    
