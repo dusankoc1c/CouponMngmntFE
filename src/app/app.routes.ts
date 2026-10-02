@@ -9,10 +9,12 @@ import { AdminList } from './features/admin/admin-list/admin-list';
 import { Unsubscribed } from './features/public/unsubscribed/unsubscribed';
 import { CouponEdit } from './features/coupons/coupon-edit/coupon-edit';
 import { StoreAdd } from './features/stores/store-add/store-add';
+import { Register } from './features/auth/register/register';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
+  { path: 'register', component: Register },
   { path: 'unsubscribed', component: Unsubscribed },
   {
     path: '',

@@ -40,10 +40,11 @@ export class InviteModal {
         })
         .subscribe({
           next: () => {
-            this.isSending.set(true);
+            this.isSending.set(false);
             this.saved.emit();
           },
           error: (error) => {
+            this.isSending.set(false);
             this.errorMessage.set(extractErrorMessage(error));
           },
         });

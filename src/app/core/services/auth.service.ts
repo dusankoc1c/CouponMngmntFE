@@ -75,4 +75,18 @@ export class AuthService {
     const user = this.getUser();
     return user !== null && user.role.includes('superadmin');
   }
+
+  register(data: {
+    invite_id: number;
+    name: string;
+    password: string;
+    password_confirmation: string;
+  }): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(this.apiUrl + '/register', data).pipe(
+      tap((response) => {
+        this.saveToken(response.token);
+        this.saveUser(response.user);
+      }),
+    );
+  }
 }

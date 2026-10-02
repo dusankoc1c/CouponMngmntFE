@@ -81,15 +81,17 @@ export class AdminList implements OnInit {
   successMessage = signal('');
 
   onOpenInviteModal(): void {
-    this.isInviteModalOpen = signal(true);
-  }
-  onCloseInviteModal(): void {
-    this.isInviteModalOpen = signal(false);
+    this.isInviteModalOpen.set(true);
   }
 
-  onInviteSent() {
-    this.isInviteModalOpen = signal(true);
-    this.successMessage = signal('Poslat invite uspesno');
+  onCloseInviteModal(): void {
+    this.isInviteModalOpen.set(false);
+  }
+
+  onInviteSent(): void {
+    this.isInviteModalOpen.set(false);
+    this.successMessage.set('Poslat invite uspesno');
+
     setTimeout(() => {
       this.successMessage.set('');
     }, 3000);

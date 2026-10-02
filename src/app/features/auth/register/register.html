@@ -1,1 +1,20 @@
-<p>register works!</p>
+<div class="login-container">
+  <h1>Registracija</h1>
+
+  @if (errorMessage() !== '') {
+    <p class="error">{{ errorMessage() }}</p>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label>Ime</label>
+    <input type="text" formControlName="name">
+
+    <label>Lozinka</label>
+    <input type="password" formControlName="password">
+
+    <label>Potvrdi lozinku</label>
+    <input type="password" formControlName="password_confirmation">
+
+    <button type="submit" class="btn btn-primary" [disabled]="isSaving()">Registruj se</button>
+  </form>
+</div>
